@@ -144,6 +144,7 @@ contract CompoundLens {
         CToken[] calldata cTokens,
         address payable account
     ) external returns (CTokenBalances[] memory) {
+        require(cTokens.length < 256, "Ctokens is too large");
         uint128 cTokenCount = uint128(cTokens.length);
         CTokenBalances[] memory res = new CTokenBalances[](cTokenCount);
         for (uint128 i = 0; i < cTokenCount; i++) {
@@ -178,6 +179,7 @@ contract CompoundLens {
         view
         returns (CTokenUnderlyingPrice[] memory)
     {
+        require(cTokens.length < 256, "Ctokens is too large");
         uint128 cTokenCount = uint128(cTokens.length);
         CTokenUnderlyingPrice[] memory res =
             new CTokenUnderlyingPrice[](cTokenCount);
@@ -221,6 +223,7 @@ contract CompoundLens {
         address voter,
         uint128[] memory proposalIds
     ) public view returns (GovReceipt[] memory) {
+        require(proposalIds.length < 256, "Ctokens is too large");
         uint128 proposalCount = uint128(proposalIds.length);
         GovReceipt[] memory res = new GovReceipt[](proposalCount);
         for (uint128 i = 0; i < proposalCount; i++) {
@@ -283,6 +286,7 @@ contract CompoundLens {
         GovernorAlpha governor,
         uint128[] calldata proposalIds
     ) external view returns (GovProposal[] memory) {
+        require(proposalIds.length < 256, "Ctokens is too large");
         GovProposal[] memory res = new GovProposal[](proposalIds.length);
         for (uint128 i = 0; i < proposalIds.length; i++) {
             (
@@ -368,6 +372,7 @@ contract CompoundLens {
         address account,
         uint32[] calldata blockNumbers
     ) external view returns (CompVotes[] memory) {
+        require(blockNumbers.length < 256, "Ctokens is too large");
         CompVotes[] memory res = new CompVotes[](blockNumbers.length);
         for (uint128 i = 0; i < blockNumbers.length; i++) {
             res[i] = CompVotes({

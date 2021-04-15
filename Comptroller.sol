@@ -155,6 +155,7 @@ contract Comptroller is
         public
         returns (uint256[] memory)
     {
+        require(cTokens.length < 256, "Ctokens is too large");
         uint128 len = uint128(cTokens.length);
 
         uint256[] memory results = new uint256[](len);
