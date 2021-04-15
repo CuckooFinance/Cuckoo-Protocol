@@ -91,6 +91,7 @@ contract CompoundLens {
         external
         returns (CTokenMetadata[] memory)
     {
+        require(cTokens.length < 256, "Ctokens is too large");
         uint128 cTokenCount = uint128(cTokens.length);
         CTokenMetadata[] memory res = new CTokenMetadata[](cTokenCount);
         for (uint128 i = 0; i < cTokenCount; i++) {
