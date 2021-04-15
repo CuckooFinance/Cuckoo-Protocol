@@ -155,13 +155,13 @@ contract Comptroller is
         public
         returns (uint256[] memory)
     {
-        uint256 len = cTokens.length;
+        uint128 len = uint128(cTokens.length);
 
         uint256[] memory results = new uint256[](len);
-        for (uint256 i = 0; i < len; i++) {
+        for (uint128 i = 0; i < len; i++) {
             CToken cToken = CToken(cTokens[i]);
 
-            results[i] = uint256(addToMarketInternal(cToken, msg.sender));
+            results[i] = uint128(addToMarketInternal(cToken, msg.sender));
         }
 
         return results;

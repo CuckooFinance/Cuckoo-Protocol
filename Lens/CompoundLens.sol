@@ -91,9 +91,9 @@ contract CompoundLens {
         external
         returns (CTokenMetadata[] memory)
     {
-        uint256 cTokenCount = cTokens.length;
+        uint128 cTokenCount = uint128(cTokens.length);
         CTokenMetadata[] memory res = new CTokenMetadata[](cTokenCount);
-        for (uint256 i = 0; i < cTokenCount; i++) {
+        for (uint128 i = 0; i < cTokenCount; i++) {
             res[i] = cTokenMetadata(cTokens[i]);
         }
         return res;
@@ -143,9 +143,9 @@ contract CompoundLens {
         CToken[] calldata cTokens,
         address payable account
     ) external returns (CTokenBalances[] memory) {
-        uint256 cTokenCount = cTokens.length;
+        uint128 cTokenCount = uint128(cTokens.length);
         CTokenBalances[] memory res = new CTokenBalances[](cTokenCount);
-        for (uint256 i = 0; i < cTokenCount; i++) {
+        for (uint128 i = 0; i < cTokenCount; i++) {
             res[i] = cTokenBalances(cTokens[i], account);
         }
         return res;
@@ -177,10 +177,10 @@ contract CompoundLens {
         view
         returns (CTokenUnderlyingPrice[] memory)
     {
-        uint256 cTokenCount = cTokens.length;
+        uint128 cTokenCount = uint128(cTokens.length);
         CTokenUnderlyingPrice[] memory res =
             new CTokenUnderlyingPrice[](cTokenCount);
-        for (uint256 i = 0; i < cTokenCount; i++) {
+        for (uint128 i = 0; i < cTokenCount; i++) {
             res[i] = cTokenUnderlyingPrice(cTokens[i]);
         }
         return res;
@@ -218,11 +218,11 @@ contract CompoundLens {
     function getGovReceipts(
         GovernorAlpha governor,
         address voter,
-        uint256[] memory proposalIds
+        uint128[] memory proposalIds
     ) public view returns (GovReceipt[] memory) {
-        uint256 proposalCount = proposalIds.length;
+        uint128 proposalCount = uint128(proposalIds.length);
         GovReceipt[] memory res = new GovReceipt[](proposalCount);
-        for (uint256 i = 0; i < proposalCount; i++) {
+        for (uint128 i = 0; i < proposalCount; i++) {
             GovernorAlpha.Receipt memory receipt =
                 governor.getReceipt(proposalIds[i], voter);
             res[i] = GovReceipt({
@@ -280,10 +280,10 @@ contract CompoundLens {
 
     function getGovProposals(
         GovernorAlpha governor,
-        uint256[] calldata proposalIds
+        uint128[] calldata proposalIds
     ) external view returns (GovProposal[] memory) {
         GovProposal[] memory res = new GovProposal[](proposalIds.length);
-        for (uint256 i = 0; i < proposalIds.length; i++) {
+        for (uint128 i = 0; i < proposalIds.length; i++) {
             (
                 address[] memory targets,
                 uint256[] memory values,
@@ -368,10 +368,10 @@ contract CompoundLens {
         uint32[] calldata blockNumbers
     ) external view returns (CompVotes[] memory) {
         CompVotes[] memory res = new CompVotes[](blockNumbers.length);
-        for (uint256 i = 0; i < blockNumbers.length; i++) {
+        for (uint128 i = 0; i < blockNumbers.length; i++) {
             res[i] = CompVotes({
-                blockNumber: uint256(blockNumbers[i]),
-                votes: uint256(cuckoo.getPriorVotes(account, blockNumbers[i]))
+                blockNumber: uint128(blockNumbers[i]),
+                votes: uint128(cuckoo.getPriorVotes(account, blockNumbers[i]))
             });
         }
         return res;
